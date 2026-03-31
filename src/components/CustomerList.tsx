@@ -29,7 +29,7 @@ export default function CustomerList() {
 
   return (
     <>
-        <div style={{width: "100%", height: 500}}>
+        <div className="data-grid-container">
             <DataGrid
                 rows={customers}
                 columns={columns}

@@ -1,0 +1,100 @@
+
+/* Root app container */
+.App {
+  text-align: center;
+
+}
+
+/* Add spacing around the main container */
+.MuiContainer-root {
+  margin-top: 20px;
+}
+
+/* Navigation bar spacing */
+nav {
+  margin-bottom: 20px;
+}
+
+/* Sidebar layout (if it's positioned inline) */
+.sidebar {
+  margin-bottom: 20px;
+}
+
+/* DataGrid container styling */
+.data-grid-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 100%;
+  max-width: 1200px;
+  height: 700px;
+  margin: 0 auto; 
+}
+
+/* DataGrid appearance */
+.MuiDataGrid-root {
+  border: none;
+  font-size: 14px;
+}
+
+/* Header styling */
+.MuiDataGrid-columnHeaders {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Row hover effect */
+.MuiDataGrid-row:hover {
+  background-color: #f9f9f9;
+}
+
+/* Optional: center content nicely */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.SideBar {
+    height: 100%;
+    width: 250px;
+    background-color: aqua;
+}
+
+.SideBarList {
+    height: auto;
+    width: 100%;
+    padding: 0;
+}
+
+.SideBarList .SideBarRow {
+    height: 50px;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.SideBarList #active{
+    background-color: beige;
+}
+
+.SideBarList .SideBarRow:hover {
+    cursor: pointer;
+    background-color: beige;
+}
+
+.SideBarRow #icon {
+    flex: 30%;
+    display: grid;
+    place-items: center ;
+}
+
+.SideBarRow #title {
+    flex: 70%;
+}
