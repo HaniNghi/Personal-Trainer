@@ -16,9 +16,9 @@ export default function NavigationBar(props: NavigationBarProps) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar position="static" >
+        <Toolbar sx={{backgroundColor: "#9CD5FF", color: "black"}}>
           <IconButton
             size="large"
             edge="start"

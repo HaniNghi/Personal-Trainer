@@ -2,13 +2,16 @@ import "../App.css";
 import { SideBarData } from "./SideBarData";
 import { useNavigate, useLocation } from "react-router-dom";
 
+type SideBarProps = {
+  openMenu: boolean
+}
 
-export default function SideBar() {
+export default function SideBar(props: SideBarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
     return (
-    <div className="SideBar">
+    <div className={`SideBar ${props.openMenu ? "open" : "closed"}`}>
       <ul className="SideBarList">
         {SideBarData.map((val, key) => {
           return (

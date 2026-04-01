@@ -10,26 +10,15 @@
   margin-top: 20px;
 }
 
-/* Navigation bar spacing */
-nav {
-  margin-bottom: 20px;
-}
-
-/* Sidebar layout (if it's positioned inline) */
-.sidebar {
-  margin-bottom: 20px;
-}
-
 /* DataGrid container styling */
 .data-grid-container {
-  background-color: #ffffff;
+  background-color: #F7F8F0;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   width: 100%;
-  max-width: 1200px;
   height: 700px;
-  margin: 0 auto; 
+  margin-top: 10px;
 }
 
 /* DataGrid appearance */
@@ -56,11 +45,41 @@ nav {
   gap: 20px;
 }
 
+.MuiAppBar-root {
+  z-index: 1300 !important;
+}
+
+.layout {
+  display: flex;
+}
 
 .SideBar {
-    height: 100%;
-    width: 250px;
-    background-color: aqua;
+  position: fixed;
+  top: 0;              
+  left: 0;
+  height: 100vh;       
+  width: 250px;
+  background-color: #9CD5FF;
+  z-index: 1200;
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.SideBar.open {
+  transform: translateX(0);
+}
+
+.main-content {
+  width: 100%;
+  min-width: 0;              
+  transition: margin-left 0.3s ease;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.main-content.shifted {
+  margin-left: 250px;
 }
 
 .SideBarList {
@@ -81,12 +100,12 @@ nav {
 }
 
 .SideBarList #active{
-    background-color: beige;
+    background-color: #7AAACE;
 }
 
 .SideBarList .SideBarRow:hover {
     cursor: pointer;
-    background-color: beige;
+    background-color: #7AAACE;
 }
 
 .SideBarRow #icon {
