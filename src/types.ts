@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-export type CustomerData = {
+export type Customer = {
   firstname: string;
   lastname: string;
   streetaddress: string;
@@ -21,24 +21,31 @@ export type CustomerData = {
   };
 };
 
-export type Customer = Omit<CustomerData,"_links">
 
 
-export type TrainingData = {
+// export type TrainingData = {
+//   date: Dayjs,
+//   duration: number, //in minutes
+//   activity: string,
+//   _links: {
+//     self: {
+//       href: string;
+//     };
+//     training: {
+//       href: string;
+//     };
+//     customer: {
+//       href: string;
+//     };
+//   }
+// }
+
+// export type Training = Omit<TrainingData,"_links">
+
+export type Training = { 
+  id: number,
   date: Dayjs,
-  duration: number, //in minutes
+  duration: number,
   activity: string,
-  _links: {
-    self: {
-      href: string;
-    };
-    training: {
-      href: string;
-    };
-    customer: {
-      href: string;
-    };
-  }
+  customer: Customer,
 }
-
-export type Training = Omit<TrainingData,"_links">

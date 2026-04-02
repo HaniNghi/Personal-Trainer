@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import type { Customer, CustomerData} from "../types";
-import type { GridColDef } from "@mui/x-data-grid";
+import type { Customer, Training} from "../types";
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchCustomer, fetchAddCustomer } from "../api";
+import { fetchCustomer, fetchAddCustomer, fetchAddTraining } from "../api";
 import { Stack } from "@mui/material";
 import AddCustomer from "./AddCustomer";
+import AddTraining from "./AddTraining";
 
 export default function CustomerList() {
-  const [customers, setCustomers] = useState<CustomerData[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
 
   const columns: GridColDef[] = [
     { field: "firstname", headerName: "First Name", width: 150 },
@@ -17,6 +18,16 @@ export default function CustomerList() {
     { field: "city", headerName: "City", width: 100 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "phone", headerName: "Phone Number", width: 150 },
+    // { field: "_links.seft.trainings",
+    //   headerName: "",
+    //   sortable: false,
+    //   filterable: false,
+    //   renderCell: (params: GridRenderCellParams) =>{
+    //     <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
+    //       <AddTraining handleAddTraining={handleAddTraining} />
+    //     </Stack>
+    //   }
+    //  }
   ];
 
   const getCustomers = () => {
@@ -35,7 +46,11 @@ export default function CustomerList() {
       .catch((err) => console.error(err));
   };
 
-  
+  // const handleAddTraining = (training: Training) => {
+  //     fetchAddTraining(training)
+  //       .then(() => getTrainings())
+  //       .catch((err) => console.error(err));
+  //   };
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Training } from "../types";
+import type { Training, Customer } from "../types";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import TrainingForm from "./TrainingForm";
 import dayjs from "dayjs";
