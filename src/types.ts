@@ -21,6 +21,7 @@ export type Customer = {
   };
 };
 
+// export type CustomerSimple = Omit<Customer,"_links">
 
 
 // export type TrainingData = {
@@ -43,9 +44,16 @@ export type Customer = {
 // export type Training = Omit<TrainingData,"_links">
 
 export type Training = { 
-  id: number,
+  id?: number,
   date: Dayjs,
   duration: number,
   activity: string,
-  customer: Customer,
+  customer?: Customer,
+}
+
+export type TrainingSimple = { 
+  date: Dayjs,
+  duration: number,
+  activity: string,
+  customer?: string,
 }

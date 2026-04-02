@@ -1,4 +1,4 @@
-import type { Customer, Training } from "./types";
+import type { Customer, TrainingSimple } from "./types";
 
 // FETCH CUSTOMER
 export const fetchCustomer = () => {
@@ -39,7 +39,7 @@ export const fetchAddCustomer = (customer: Customer) => {
 }
 
 // FETCH ADD TRAINING
-export const fetchAddTraining = (training: Training) => {
+export const fetchAddTraining = (training: TrainingSimple) => {
   return fetch(import.meta.env.VITE_API_URL + "/trainings", {
     method: "POST",
     headers: {
