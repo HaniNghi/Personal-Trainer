@@ -17,6 +17,17 @@ export default function AddCustomer(props: AddCustomerProps) {
     city: "",
     email: "",
     phone: "",
+    _links: {
+      self: {
+        href: "",
+      },
+      customer: {
+        href: "",
+      },
+      trainings: {
+        href: "",
+      },
+    },
   });
 
   const handleClickOpenForm = () => {
@@ -37,6 +48,17 @@ export default function AddCustomer(props: AddCustomerProps) {
       city: "",
       email: "",
       phone: "",
+      _links: {
+      self: {
+        href: "",
+      },
+      customer: {
+        href: "",
+      },
+      trainings: {
+        href: "",
+      },
+    },
     });
     handleCloseForm();
   };
