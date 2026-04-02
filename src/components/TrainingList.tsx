@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { TrainingData, Training } from "../types";
+import type { Training } from "../types";
 import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 import { fetchTraining } from "../api";
@@ -10,7 +10,7 @@ import { Stack } from "@mui/material";
 import AddTraining from "./AddTraining";
 
 export default function TrainingList() {
-  const [trainings, setTrainings] = useState<TrainingData[]>([]);
+  const [trainings, setTrainings] = useState<Training[]>([]);
   dayjs.extend(utc);
 
   const columns: GridColDef[] = [
@@ -22,11 +22,19 @@ export default function TrainingList() {
     },
     { field: "duration", headerName: "Duration (minutes)", width: 150 },
     { field: "activity", headerName: "Activity", width: 150 },
+    {
+      field: "customerFirstName",
+      headerName: "Customer Name",
+      width: 150,
+      valueGetter: (_, row) => {
+        return `${row.customer.firstname || ""} ${row.customer.lastname || ""}`;
+      },
+    },
   ];
 
   const getTrainings = () => {
     fetchTraining()
-      .then((data) => setTrainings(data._embedded.trainings))
+      .then((data) => setTrainings(data))
       .catch((err) => console.error(err));
   };
 
@@ -49,7 +57,7 @@ export default function TrainingList() {
         <DataGrid
           rows={trainings}
           columns={columns}
-          getRowId={(row) => row._links.self.href}
+          getRowId={(row) => row.id}
           autoPageSize
           rowSelection={false}
         />
