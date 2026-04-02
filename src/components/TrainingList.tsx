@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-import type { TrainingData } from "../types";
-import type { GridColDef} from "@mui/x-data-grid";
+import type { TrainingData, Training } from "../types";
+import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 import { fetchTraining } from "../api";
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import { fetchAddTraining } from "../api";
+import { Stack } from "@mui/material";
+import AddTraining from "./AddTraining";
 
 export default function TrainingList() {
   const [trainings, setTrainings] = useState<TrainingData[]>([]);
   dayjs.extend(utc);
 
-
   const columns: GridColDef[] = [
-    { field: "date", headerName: "Date", width: 250, valueFormatter: (params) =>
-      dayjs.utc(params).format('DD/MM/YYYY, HH:mm'),
-  },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 250,
+      valueFormatter: (params) => dayjs.utc(params).format("DD/MM/YYYY, HH:mm"),
+    },
     { field: "duration", headerName: "Duration (minutes)", width: 150 },
     { field: "activity", headerName: "Activity", width: 150 },
   ];
@@ -31,17 +34,26 @@ export default function TrainingList() {
     getTrainings();
   }, []);
 
+  const handleAddTraining = (training: Training) => {
+    fetchAddTraining(training)
+      .then(() => getTrainings())
+      .catch((err) => console.error(err));
+  };
+
   return (
     <>
-        <div className="data-grid-container">
-            <DataGrid
-                rows={trainings}
-                columns={columns}
-                getRowId={row => row._links.self.href}
-                autoPageSize
-                rowSelection={false}
-            />
-        </div>
+      <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
+        <AddTraining handleAddTraining={handleAddTraining} />
+      </Stack>
+      <div className="data-grid-container">
+        <DataGrid
+          rows={trainings}
+          columns={columns}
+          getRowId={(row) => row._links.self.href}
+          autoPageSize
+          rowSelection={false}
+        />
+      </div>
     </>
-  )
+  );
 }

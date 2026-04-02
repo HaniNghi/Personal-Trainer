@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import type { CustomerData } from "../types";
-import type { GridColDef} from "@mui/x-data-grid";
+import type { Customer, CustomerData} from "../types";
+import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchCustomer } from "../api";
+import { fetchCustomer, fetchAddCustomer } from "../api";
+import { Stack } from "@mui/material";
+import AddCustomer from "./AddCustomer";
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<CustomerData[]>([]);
@@ -27,17 +29,28 @@ export default function CustomerList() {
     getCustomers();
   }, []);
 
+  const handleAddCustomer = (customer: Customer) => {
+    fetchAddCustomer(customer)
+      .then(() => getCustomers())
+      .catch((err) => console.error(err));
+  };
+
+  
+
   return (
     <>
-        <div className="data-grid-container">
-            <DataGrid
-                rows={customers}
-                columns={columns}
-                getRowId={row => row._links.self.href}
-                autoPageSize
-                rowSelection={false}
-            />
-        </div>
+      <Stack direction="row" sx={{ mt: 2, mb: 2 }}  >
+        <AddCustomer handleAddCustomer={handleAddCustomer} />
+      </Stack>
+      <div className="data-grid-container">
+        <DataGrid
+          rows={customers}
+          columns={columns}
+          getRowId={(row) => row._links.self.href}
+          autoPageSize
+          rowSelection={false}
+        />
+      </div>
     </>
-  )
+  );
 }

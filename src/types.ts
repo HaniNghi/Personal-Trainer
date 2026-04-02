@@ -1,8 +1,10 @@
+import { Dayjs } from 'dayjs';
+
 export type CustomerData = {
   firstname: string;
   lastname: string;
   streetaddress: string;
-  postcode: number;
+  postcode: string;
   city: string;
   email: string;
   phone: string;
@@ -23,7 +25,7 @@ export type Customer = Omit<CustomerData,"_links">
 
 
 export type TrainingData = {
-  date:string,
+  date: Dayjs,
   duration: number, //in minutes
   activity: string,
   _links: {
