@@ -52,6 +52,7 @@ export type Training = {
 }
 
 export type TrainingSimple = { 
+  id?: number,
   date: Dayjs,
   duration: number,
   activity: string,

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import type { Training } from "../types";
-import type { GridColDef } from "@mui/x-data-grid";
+import type { Training, TrainingSimple } from "../types";
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchTraining } from "../api";
+import { deleteTraining, fetchTraining } from "../api";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { fetchAddTraining } from "../api";
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import AddTraining from "./AddTraining";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function TrainingList() {
   const [trainings, setTrainings] = useState<Training[]>([]);
@@ -30,6 +32,19 @@ export default function TrainingList() {
         return `${row.customer.firstname || ""} ${row.customer.lastname || ""}`;
       },
     },
+    {
+      field: "_links.self.href",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      renderCell: (params: GridRenderCellParams) =>
+        <Button 
+          color="error" 
+          size="small" 
+          onClick={() => handleDelete(params.id as string)}>
+          <DeleteIcon fontSize="small"/>
+        </Button>
+    },    
   ];
 
   const getTrainings = () => {
@@ -42,11 +57,19 @@ export default function TrainingList() {
     getTrainings();
   }, []);
 
-  const handleAddTraining = (training: Training) => {
+  const handleAddTraining = (training: TrainingSimple) => {
     fetchAddTraining(training)
       .then(() => getTrainings())
       .catch((err) => console.error(err));
   };
+
+  const handleDelete = (url: string) => {
+      if (window.confirm("Are you sure?")) {
+        deleteTraining(url)
+        .then(() => getTrainings())
+        .catch(err => console.error(err));
+      }
+    }
 
   return (
     <>

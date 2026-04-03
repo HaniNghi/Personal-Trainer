@@ -1,16 +1,16 @@
 import { useState } from "react";
-import type { Training } from "../types";
+import type { TrainingSimple } from "../types";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import TrainingForm from "./TrainingForm";
 import dayjs from "dayjs";
 
 type AddTrainingProps = {
-  handleAddTraining: (training: Training) => void;
+  handleAddTraining: (training: TrainingSimple) => void;
 };
 
 export default function AddTraining(props: AddTrainingProps) {
   const [openForm, setOpenForm] = useState(false);
-  const [training, setTraining] = useState<Training>({
+  const [training, setTraining] = useState<TrainingSimple>({
     date: dayjs(),
     duration: 0, 
     activity: "",

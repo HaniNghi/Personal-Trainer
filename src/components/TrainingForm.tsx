@@ -1,5 +1,5 @@
 import { DialogContent, TextField } from "@mui/material";
-import type { TrainingSimple } from "../types";
+import type { Training } from "../types";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -9,8 +9,8 @@ import NumberField from "./NumberField";
 
 
 type TrainingFormProps = {
-  training: TrainingSimple;
-  setTraining: React.Dispatch<React.SetStateAction<TrainingSimple>>;
+  training: Training;
+  setTraining: React.Dispatch<React.SetStateAction<Training>>;
 };
 
 export default function TrainingForm(props: TrainingFormProps) {

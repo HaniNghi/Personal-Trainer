@@ -53,3 +53,44 @@ export const fetchAddTraining = (training: TrainingSimple) => {
     return response.json()
   }) 
 }
+
+export const deleteCustomer = (url: string) => {
+    return fetch(url, {
+            method: "DELETE"
+          })
+          .then(response => {
+            if (!response.ok)
+              throw new Error("Error when deleting a customer");
+    
+            return response.json();
+          })
+}
+
+export const deleteTraining = (url: string) => {
+    return fetch(url, {
+            method: "DELETE"
+          })
+          .then(response => {
+            if (!response.ok)
+              throw new Error("Error when deleting a training");
+    
+            return response.json();
+          })
+}
+
+export const updateCustomer = (url: string, updatedCustomer: Customer) => {
+  return fetch (url, {
+    method: "PUT",
+    headers:{
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(updatedCustomer)
+  })
+  .then(response => {
+    if(!response.ok) {
+      throw new Error("Error in updating customer")
+  }
+    return response.json()
+  })
+}
+

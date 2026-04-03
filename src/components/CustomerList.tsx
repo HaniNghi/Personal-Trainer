@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Customer, TrainingSimple } from "../types";
+import type { Customer, Training } from "../types";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchCustomer, fetchAddCustomer, fetchAddTraining } from "../api";
+import { fetchCustomer, fetchAddCustomer, fetchAddTraining, deleteCustomer, updateCustomer } from "../api";
 import {
   Button,
   Dialog,
@@ -13,13 +13,16 @@ import {
 import AddCustomer from "./AddCustomer";
 import TrainingForm from "./TrainingForm";
 import dayjs from "dayjs";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditCustomer from './EditCustomer'
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [openForm, setOpenForm] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
 
-  const [training, setTraining] = useState<TrainingSimple>({
+  const [training, setTraining] = useState<Training>({
     date: dayjs(),
     duration: 0,
     activity: "",
@@ -48,11 +51,33 @@ export default function CustomerList() {
               setOpenForm(true);
             }}
           >
-            Add training
+            <AddIcon sx={{color: "black"}}/>
           </Button>
         );
       },
     },
+    {
+      field: "_links.self.href",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      renderCell: (params: GridRenderCellParams) =>
+        <Button 
+          color="error" 
+          size="small" 
+          onClick={() => handleDelete(params.id as string)}>
+          <DeleteIcon fontSize="small"/>
+        </Button>
+    },    
+    {
+      field:"_links.customer.href",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      renderCell: (params: GridRenderCellParams) => 
+        <EditCustomer url={params.id as string} customer={params.row} handleUpdateCustomer = {handleUpdate}/>
+    },
+
   ];
 
   const getCustomers = () => {
@@ -90,6 +115,20 @@ export default function CustomerList() {
       })
       .catch((err) => console.error(err));
   };
+
+  const handleDelete = (url: string) => {
+    if (window.confirm("Are you sure?")) {
+      deleteCustomer(url)
+      .then(() => getCustomers())
+      .catch(err => console.error(err));
+    }
+  }
+
+  const handleUpdate = (url: string, updatedCustomer: Customer) => {
+    updateCustomer(url, updatedCustomer)
+    .then(() => getCustomers())
+    .catch(err => console.error(err))
+  }
 
   return (
     <>
