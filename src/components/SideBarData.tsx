@@ -18,7 +18,7 @@ export const SideBarData = [
     {
         title: "Calendar",
         icon: <CalendarMonthIcon />,
-        link: "",
+        link: "/calendar",
     },
     {
         title: "Statistic",

@@ -4,10 +4,11 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import { fetchTraining } from "../api";
 import type { Training } from "../types";
+import dayjs from "dayjs";
 
 const localizer = momentLocalizer(moment);
 
-export default function Calendar() {
+export default function TrainingCalendar() {
   const [trainings, setTrainings] = useState<Training[]>([]);
 
   // Fetch trainings from your API
@@ -21,19 +22,22 @@ export default function Calendar() {
     getTrainings();
   }, []);
 
-  const events = trainings.map((training) => ({
-    title: `${training.activity} (${training.customer?.firstname || "Unknown"})`,
-    start: training.date.toDate(), // convert Dayjs → Date
-    end: training.date.add(training.duration, "minute").toDate(),
-  }));
+  const events = trainings.map((t) => {
+    const start = dayjs(t.date);
+    return {
+      title: `${t.activity} (${t.customer?.firstname || "Unknown"})`,
+      start: start.toDate(),
+      end: start.add(t.duration, "minute").toDate(),
+    };
+  });
 
   return (
-    <div style={{ height: "600px", margin: "20px" }}>
+    <div style={{ height: "600px", margin: "20px"}}>
       <Calendar
         localizer={localizer}
         events={events}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor={(event) => event.start}
+        endAccessor={(event) => event.end}
         views={["month", "week", "day"]}
       />
     </div>
