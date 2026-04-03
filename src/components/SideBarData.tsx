@@ -1,4 +1,3 @@
-import React from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
