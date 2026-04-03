@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import type { Training, TrainingSimple } from "../types";
+import type { Training } from "../types";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 import { deleteTraining, fetchTraining } from "../api";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { fetchAddTraining } from "../api";
-import { Button, Stack } from "@mui/material";
-import AddTraining from "./AddTraining";
+import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -57,12 +55,6 @@ export default function TrainingList() {
     getTrainings();
   }, []);
 
-  const handleAddTraining = (training: TrainingSimple) => {
-    fetchAddTraining(training)
-      .then(() => getTrainings())
-      .catch((err) => console.error(err));
-  };
-
   const handleDelete = (url: string) => {
       if (window.confirm("Are you sure?")) {
         deleteTraining(url)
@@ -73,9 +65,6 @@ export default function TrainingList() {
 
   return (
     <>
-      <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
-        <AddTraining handleAddTraining={handleAddTraining} />
-      </Stack>
       <div className="data-grid-container">
         <DataGrid
           rows={trainings}
