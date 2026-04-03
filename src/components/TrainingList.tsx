@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Training } from "../types";
-import type { GridColDef } from "@mui/x-data-grid";
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchTraining } from "../api";
+import { deleteTraining, fetchTraining } from "../api";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { fetchAddTraining } from "../api";
-import { Stack } from "@mui/material";
-import AddTraining from "./AddTraining";
+import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function TrainingList() {
   const [trainings, setTrainings] = useState<Training[]>([]);
@@ -30,6 +30,19 @@ export default function TrainingList() {
         return `${row.customer.firstname || ""} ${row.customer.lastname || ""}`;
       },
     },
+    {
+      field: "_links.self.href",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      renderCell: (params: GridRenderCellParams) =>
+        <Button 
+          color="error" 
+          size="small" 
+          onClick={() => handleDelete(`https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/trainings/${params.id}`)}>
+          <DeleteIcon fontSize="small"/>
+        </Button>
+    },    
   ];
 
   const getTrainings = () => {
@@ -42,17 +55,16 @@ export default function TrainingList() {
     getTrainings();
   }, []);
 
-  const handleAddTraining = (training: Training) => {
-    fetchAddTraining(training)
-      .then(() => getTrainings())
-      .catch((err) => console.error(err));
-  };
+  const handleDelete = (url: string) => {
+      if (window.confirm("Are you sure?")) {
+        deleteTraining(url)
+        .then(() => getTrainings())
+        .catch(err => console.error(err));
+      }
+    }
 
   return (
     <>
-      <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
-        <AddTraining handleAddTraining={handleAddTraining} />
-      </Stack>
       <div className="data-grid-container">
         <DataGrid
           rows={trainings}
@@ -60,6 +72,7 @@ export default function TrainingList() {
           getRowId={(row) => row.id}
           autoPageSize
           rowSelection={false}
+          showToolbar
         />
       </div>
     </>
