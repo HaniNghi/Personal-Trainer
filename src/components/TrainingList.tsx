@@ -41,7 +41,7 @@ export default function TrainingList() {
         <Button 
           color="error" 
           size="small" 
-          onClick={() => handleDelete(params.id as string)}>
+          onClick={() => handleDelete(`https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/trainings/${params.id}`)}>
           <DeleteIcon fontSize="small"/>
         </Button>
     },    
