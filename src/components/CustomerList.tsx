@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Customer, Training } from "../types";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid} from "@mui/x-data-grid";
 import { fetchCustomer, fetchAddCustomer, fetchAddTraining, deleteCustomer, updateCustomer } from "../api";
 import {
   Button,
@@ -142,6 +142,7 @@ export default function CustomerList() {
           getRowId={(row) => row._links.self.href}
           autoPageSize
           rowSelection={false}
+          showToolbar
         />
       </div>
       <Dialog open={openForm} onClose={() => setOpenForm(false)}>

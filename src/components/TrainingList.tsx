@@ -72,6 +72,7 @@ export default function TrainingList() {
           getRowId={(row) => row.id}
           autoPageSize
           rowSelection={false}
+          showToolbar
         />
       </div>
     </>
