@@ -11,7 +11,6 @@ const localizer = momentLocalizer(moment);
 export default function TrainingCalendar() {
   const [trainings, setTrainings] = useState<Training[]>([]);
 
-  // Fetch trainings from your API
   const getTrainings = () => {
     fetchTraining()
       .then((data) => setTrainings(data))

@@ -22,6 +22,6 @@ export const SideBarData = [
     {
         title: "Statistic",
         icon: <LeaderboardIcon />,
-        link: "",
+        link: "/statistics",
     }
 ]

@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import CustomerList from "./components/CustomerList";
 import TrainingList from "./components/TrainingList";
 import TrainingCalendar from "./components/TrainingCalendar";
+import Chart from "./components/Chart";
 
 function App() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,7 +24,7 @@ function App() {
             <Route path="/customers" element={<CustomerList />} />
             <Route path="/trainings" element={<TrainingList />} />
             <Route path="/calendar" element={<TrainingCalendar/>} />
-            <Route path="/statistics" element={<div>Statistics Page</div>} />
+            <Route path="/statistics" element={<Chart/>} />
           </Routes>
         </div>
       </div>
