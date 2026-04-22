@@ -4,7 +4,7 @@ A modern **Personal Trainer Management Web Application** built with **React + Ty
 
 ---
 
-## 🚀 Features
+## Features
 
 - 👤 Manage customers (add, edit, delete)
 - 🏃 Track training sessions
