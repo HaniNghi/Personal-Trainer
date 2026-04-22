@@ -19,7 +19,7 @@ import {
 import AddCustomer from "../components/AddCustomer";
 import TrainingForm from "../components/TrainingForm";
 import dayjs from "dayjs";
-import AddIcon from "@mui/icons-material/Add";
+import AddCircleOutlineSharpIcon from '@mui/icons-material/AddCircleOutlineSharp';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditCustomer from "../components/EditCustomer";
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,7 +58,7 @@ export default function CustomerList() {
               setOpenForm(true);
             }}
           >
-            <AddIcon sx={{ color: "black" }} />
+            <AddCircleOutlineSharpIcon  sx={{ color:  "#3889c2" }}/>
           </Button>
         );
       },
