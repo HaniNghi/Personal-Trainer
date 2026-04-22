@@ -5,10 +5,10 @@ import NavigationBar from "./components/NavigationBar";
 import SideBar from "./components/SideBar";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import CustomerList from "./components/CustomerList";
-import TrainingList from "./components/TrainingList";
-import TrainingCalendar from "./components/TrainingCalendar";
-import Chart from "./components/Chart";
+import CustomerList from "./pages/CustomerList";
+import TrainingList from "./pages/TrainingList";
+import TrainingCalendar from "./pages/TrainingCalendar";
+import Chart from "./pages/Chart";
 
 function App() {
   const [openMenu, setOpenMenu] = useState(false);

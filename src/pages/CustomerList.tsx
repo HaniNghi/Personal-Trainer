@@ -10,12 +10,12 @@ import {
   DialogTitle,
   Stack,
 } from "@mui/material";
-import AddCustomer from "./AddCustomer";
-import TrainingForm from "./TrainingForm";
+import AddCustomer from "../components/AddCustomer";
+import TrainingForm from "../components/TrainingForm";
 import dayjs from "dayjs";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditCustomer from './EditCustomer'
+import EditCustomer from '../components/EditCustomer'
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
