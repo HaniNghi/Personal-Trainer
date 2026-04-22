@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Customer, Training } from "../types";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { DataGrid} from "@mui/x-data-grid";
-import { fetchCustomer, fetchAddCustomer, fetchAddTraining, deleteCustomer, updateCustomer } from "../api";
+import { DataGrid } from "@mui/x-data-grid";
+import {
+  fetchCustomer,
+  fetchAddCustomer,
+  fetchAddTraining,
+  deleteCustomer,
+  updateCustomer,
+} from "../api";
 import {
   Button,
   Dialog,
@@ -13,9 +19,10 @@ import {
 import AddCustomer from "../components/AddCustomer";
 import TrainingForm from "../components/TrainingForm";
 import dayjs from "dayjs";
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditCustomer from '../components/EditCustomer'
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditCustomer from "../components/EditCustomer";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -51,7 +58,7 @@ export default function CustomerList() {
               setOpenForm(true);
             }}
           >
-            <AddIcon sx={{color: "black"}}/>
+            <AddIcon sx={{ color: "black" }} />
           </Button>
         );
       },
@@ -61,23 +68,29 @@ export default function CustomerList() {
       headerName: "",
       sortable: false,
       filterable: false,
-      renderCell: (params: GridRenderCellParams) =>
-        <Button 
-          color="error" 
-          size="small" 
-          onClick={() => handleDelete(params.id as string)}>
-          <DeleteIcon fontSize="small"/>
+      renderCell: (params: GridRenderCellParams) => (
+        <Button
+          color="error"
+          size="small"
+          onClick={() => handleDelete(params.id as string)}
+        >
+          <DeleteIcon fontSize="small" />
         </Button>
-    },    
+      ),
+    },
     {
-      field:"_links.customer.href",
+      field: "_links.customer.href",
       headerName: "",
       sortable: false,
       filterable: false,
-      renderCell: (params: GridRenderCellParams) => 
-        <EditCustomer url={params.id as string} customer={params.row} handleUpdateCustomer = {handleUpdate}/>
+      renderCell: (params: GridRenderCellParams) => (
+        <EditCustomer
+          url={params.id as string}
+          customer={params.row}
+          handleUpdateCustomer={handleUpdate}
+        />
+      ),
     },
-
   ];
 
   const getCustomers = () => {
@@ -92,7 +105,9 @@ export default function CustomerList() {
 
   const handleAddCustomer = (customer: Customer) => {
     fetchAddCustomer(customer)
-      .then(() => getCustomers())
+      .then(() => {
+        getCustomers();
+      })
       .catch((err) => console.error(err));
   };
 
@@ -119,16 +134,16 @@ export default function CustomerList() {
   const handleDelete = (url: string) => {
     if (window.confirm("Are you sure?")) {
       deleteCustomer(url)
-      .then(() => getCustomers())
-      .catch(err => console.error(err));
+        .then(() => getCustomers())
+        .catch((err) => console.error(err));
     }
-  }
+  };
 
   const handleUpdate = (url: string, updatedCustomer: Customer) => {
     updateCustomer(url, updatedCustomer)
-    .then(() => getCustomers())
-    .catch(err => console.error(err))
-  }
+      .then(() => getCustomers())
+      .catch((err) => console.error(err));
+  };
 
   return (
     <>
