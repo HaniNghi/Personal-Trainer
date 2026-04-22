@@ -5,6 +5,8 @@ import { fetchTraining } from "../api";
 import type { Training } from "../types";
 import { groupBy, sumBy } from "lodash";
 import dayjs from "dayjs";
+import "../App.css";
+import { Typography } from "@mui/material";
 
 export default function Chart() {
   const [trainings, setTrainings] = useState<Training[]>([]);
@@ -42,16 +44,23 @@ export default function Chart() {
           { scaleType: "band", data: activityStats.map((a) => a.activity) },
         ]}
         series={[{ data: activityStats.map((a) => a.minutes) }]}
-        height={400}
+        height={380}
         width={800}
       />
+      <Typography
+        sx={{
+          textAlign: "center",
+          mt: 2,
+          fontWeight: 600,
+        }}
+      >
+        Total minutes per activity (Bar chart)
+      </Typography>
       <LineChart
         xAxis={[
           {
             scaleType: "point",
-            data: byDate.map(
-              (d) => dayjs(d.date).format("DD MMM"), // nicer display
-            ),
+            data: byDate.map((d) => dayjs(d.date).format("DD MMM")),
           },
         ]}
         series={[
@@ -59,9 +68,18 @@ export default function Chart() {
             data: byDate.map((d) => d.minutes),
           },
         ]}
-        height={400}
+        height={380}
         width={800}
       />
+      <Typography
+        sx={{
+          textAlign: "center",
+          mt: 2,
+          fontWeight: 600,
+        }}
+      >
+        Trainings over time (Line Chart)
+      </Typography>
     </>
   );
 }
